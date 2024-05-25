@@ -1,0 +1,31 @@
+// {type:class}
+// {direction:leftToRight}
+// {generate:true}
+
+
+[Parqueadero|-nombre:String;-numeroPuestos:int;]
+[<<abstract>>;Vehiculo|-placa:String;-modelo:String;]
+[Puesto|-posicionI:Int;-posicionJ:Int;]
+[<<enum>>;Estado|LIBRE;OCUPADO]
+[Registro|fechaIngreso:LocalDateTime;fechaSalida:LocalDateTime]
+[Moto|-velocidadMaxima:double;tarifaClasica:double; tarifaHibrida:double]
+[<<enum>>;TipoMoto|CLASICA;HIBRIDA]
+[Carro|tarifa:double]
+[Propietario]
+[Comprador]
+[Administrador]
+[Persona|-nombres:String;-apellidos:String;-edad:int;-celular:String;-correo:String;]               
+
+[Parqueadero]<>1-*[Puesto]
+[Parqueadero]<>1-*>[<<abstract>>;Vehiculo]
+[Parqueadero]<>1-*>[Registro]
+[<<abstract>>;Vehiculo]^-[Moto]
+[Moto]1-1>[<<enum>>;TipoMoto]
+[<<abstract>>;Vehiculo]1-1>[Propietario]
+[Puesto]1-1>[<<enum>>;Estado]
+[Puesto]1-1>[<<abstract>>;Vehiculo]
+[Persona]^-[Propietario]
+[Persona]^-[Comprador]
+[Persona]^-[Administrador]
+[<<abstract>>;Vehiculo]<1-*[Registro]
+[<<abstract>>;Vehiculo]^-[Carro]

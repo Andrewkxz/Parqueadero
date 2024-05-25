@@ -1,0 +1,30 @@
+// {type:class}
+// {direction:leftToRight}
+// {generate:true}
+
+
+[Parqueadero|-nombre:String;-numeroPuestos:int;|+Constructor(nombre:String,numeroPuestos:Int);+getNombre():String;+getNumeroPuestos():int;+addVehiculo(Vehiculo:vehiculo);+crearPuestos(Int numeroPuestos);+addVehiculoPuestoDado(Vehiculo vehiculo, int posicionI, int posicionJ);+removeVehiculoPuestoDado(posicionI:int, posicionJ:int, fechaSalida:Fecha);+verificarPuestoDisponible(int posicionI, int posicionJ):boolean;+actualizarEstadoPuesto(posicionI:int,posicionJ:int,estadoNuevo:Estado);+identificarPropietarioPuestoDado(posicionI:int,posicionJ:int):Propietario;+getRegistros():Collection<Registro>;+getPuestos():Hashtable<Puesto>;+getVehiculos():Collection<Vehiculo>;+generarReporteMensual(fecha):double;+generarReporteDiario(fecha):Collection<Double>]
+[<<abstract>>;Vehiculo|-placa:String;-modelo:String|+Constructor(placa:String,modelo:String,propietario:Propietario);+getPlaca():String;+getModelo():String;+getPropietario():Propietario;+abstract double getTarifa();+abstract void setTarifa(double tarifa);]
+[Puesto|-posicionI:Int;-posicionJ:Int;-estado:Estado;|+Constructor(posicionI:Int,posicionJ:Int,Estado:Estado);+getPosicionI():Int;+getPosicionJ():Int;+getEstado()Estado;setEstado(Estado);+getVehiculo():Vehiculo;+setVehiculo(Vehiculo)]
+[<<enum>>;Estado|LIBRE;OCUPADO]
+[Registro|fechaIngreso:LocalDateTime;fechaSalida:LocalDateTime|+Constructor(fechaEntrada:LocalDateTime;fechaSalida:LocalDateTime;Vehiculo:vechiculo);+calcularTiempo():Int;+calcularTarifa():double;getFechaEntrada:fechaEntrada;getFechaSalida:fechaSalida;getVehiculo:vehiculo);+setFechaSalida(Fecha)]
+[Moto|-velocidadMaxima:double;-tipoMoto:TipoMoto;-static tarifaClasica:double;-static tarifaHibrida:double|+Constructor(velocidadMaxima: double; tipoMoto: TipoMoto);+ getVelocidadMaxima():double ; + getTipoMoto(): TipoMoto; +getTarifa():double;+setTarifa(double tarifa);]
+[<<enum>>;TipoMoto|CLASICA;HIBRIDA]
+[Carro|-static tarifa:double;|+getTarifa():double;+setTarifa(double tarifa);]
+[Propietario]
+[Comprador]
+[Administrador|;+cambiarTarifa(Tarifa,double)]
+[Persona|-nombres:String;-apellidos:String;-edad:int;-celular:String;-correo:String;|+Constructor(nombres:String,apellidos:String,edad:int,celular:String,correo: String);+getNombres():String;+getApellidos():String;+getEdad():int;+getCelular():String;+getCorreo():String]               
+
+[Parqueadero]<>1-*[Puesto]
+[Parqueadero]<>1-*>[<<abstract>>;Vehiculo]
+[<<abstract>>;Vehiculo]-^[Moto]
+[Moto]1-1>[<<enum>>;TipoMoto]
+[<<abstract>>;Vehiculo]1-1>[Propietario]
+[Puesto]1-1>[<<enum>>;Estado]
+[Puesto]1-1>[<<abstract>>;Vehiculo]
+[Persona]^-[Propietario]
+[Persona]^-[Comprador]
+[Persona]^-[Administrador]
+[<<abstract>>;Vehiculo]<1-*[Registro]
+[<<abstract>>;Vehiculo]^-[Carro]
