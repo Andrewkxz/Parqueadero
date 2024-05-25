@@ -1,11 +1,12 @@
 # parqueadero
 
-Descripciín basisca de su Proyecto de POO ...
+Proyecto para la gestión de un parqueadero.
 
 # Autores
 
-- Autor 1
-- Autor 2
+- Jaider Andrés Melo Rodríguez
+- Yerilin Ul Yalanda
+- Juan Jose Mendez Carranza
 
 # Herramientas
 
