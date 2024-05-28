@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
  * 
  * @author Jaider Andrés Melo Rodríguez
  * @author Yerilin Ul Yalanda
+ * @author Juan Jose Mendez Carranza
+ * 
  * @since 2024-05
  * 
  *        Licencia GNU/GPL V3.0

@@ -18,6 +18,8 @@ import org.junit.jupiter.api.Test;
  * 
  * @author Jaider Andrés Melo Rodríguez
  * @author Yerilin Ul Yalanda
+ * @author Juan Jose Mendez Carranza
+ * 
  * @since 2024-05
  * 
  *        Licencia GNU/GPL V3.0
@@ -41,7 +43,7 @@ public class ParqueaderoTest {
     }
 
     @Test
-    public void añadirVehiculosDiferentes() {
+    public void addVehiculosDiferentes() {
 
         LOG.info("Iniciando test de añadir vehiculos diferentes al parqueadero");
 
@@ -70,7 +72,7 @@ public class ParqueaderoTest {
     }
 
     @Test
-    public void aniadirVehiculosIguales() {
+    public void addVehiculosIguales() {
 
         LOG.info("Iniciando test de añadir vehiculos diferentes al parqueadero");
 
@@ -207,6 +209,45 @@ public class ParqueaderoTest {
 
         LOG.info("Inicializando test de calcularTarifaDespuesDeXhoras");
 
+    }
+    @Test
+    public void calcularTarifaMenosDe1Hora() {
+
+        LOG.info("Inicializando test de calcularTarifaMenosDe1Hora");
+
+        var parqueadero = new Parqueadero("parkeando", 5);
+
+        var administrador = new Administrador("Camilo", "Jaramillo", 45, "27327832829", "camilo@gmail.com");
+
+        var propietario1 = new Propietario("Yerilin", "Ul", 27, "0987654321", "yerilin@gmail.com");
+        var propietario2 = new Propietario("Andrés", "Rodriguez", 20, "1234567890", "andres@gmail.com");
+        var propietario3 = new Propietario("Camila", "Zamudio", 19, "87438784", "camila@gmail.com");
+
+        var carro = new Carro("AYS27G", "Duster", propietario1);
+        var motoClasica = new Moto("NEL47C", "MT 09 2024", propietario2, 200, TipoMoto.CLASICA);
+        var motoHibrida = new Moto("MSD38G", "BWS FI", propietario3, 150, TipoMoto.HIBRIDA);
+
+        administrador.cambiarTarifa(carro, 3500.0);
+        administrador.cambiarTarifa(motoClasica, 2000.0);
+        administrador.cambiarTarifa(motoHibrida, 2800.0);
+
+        parqueadero.addVehiculoPuestoDado(carro, 1, 1);
+        parqueadero.addVehiculoPuestoDado(motoClasica, 2, 2);
+        parqueadero.addVehiculoPuestoDado(motoHibrida, 3, 3);
+
+        parqueadero.removeVehiculoPuestoDado(1, 1, LocalDateTime.now().plusMinutes(10));
+        parqueadero.removeVehiculoPuestoDado(2, 2, LocalDateTime.now().plusMinutes(8));
+        parqueadero.removeVehiculoPuestoDado(3, 3, LocalDateTime.now().plusMinutes(15));
+
+        LocalDate fecha = LocalDate.now();
+
+        List<Double> reporteDiarioEsperado = List.of(3500.0, 2000.0, 2800.0);
+        Collection<Double> reporteDiario = parqueadero.generarReporteDiario(fecha);
+
+        assertEquals(reporteDiarioEsperado, new LinkedList<>(reporteDiario));
+
+        LOG.info("Inicializando test de calcularTarifaMenosDe1Hora");
+        
     }
 
     @Test
